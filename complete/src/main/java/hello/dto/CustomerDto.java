@@ -1,11 +1,29 @@
 package hello.dto;
 
-public class CustomerDto {
+
+import org.springframework.stereotype.Component;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Component
+public class CustomerDto //implements CustomerRepository
+         {
+    public CustomerDto() {
+    }
 
     //TODO: Fill with data corresponding to Customer entity
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String firstName;
     private String lastName;
+
+    public CustomerDto(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public Long getId() {
         return id;
@@ -30,4 +48,6 @@ public class CustomerDto {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+
 }

@@ -1,12 +1,13 @@
 package hello.controller;
 
 
+import hello.dto.CustomerDto;
 import hello.model.Customer;
 import hello.servce.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,47 +25,59 @@ public class CustomerController {
     //TODO: All logic has to be implemented in service!
 
     //TODO: Create GET method that retrieves all customers
-    @GetMapping("/get")
-    public List<Customer> get() {
+    @RequestMapping(value = "/customer/get", method = RequestMethod.GET)
+    @ResponseBody
+    public List<CustomerDto> getAllCustomers() {
         return customerService.getAllCustomers();
     }
 
     //TODO: Create GET method that gets customer by its ID
-    public Customer get(Long ID) {
+    @RequestMapping(value = "/customer/getById", method = RequestMethod.GET)
+    @ResponseBody
+    public CustomerDto getCustomerById(Long ID) {
         return customerService.getCustomerById(ID);
     }
 
     //TODO: Create GET method that gets customer by search key (name, surname, etc.)
-    public Customer get(String searchKey) {
+    @RequestMapping(value = "/customer/getBySearchKey", method = RequestMethod.GET)
+    @ResponseBody
+    public List<CustomerDto> getCustomerBySearchKey(String searchKey) {
         return customerService.getCustomerBySearchKey(searchKey);
     }
 
     //TODO: Create POST method to saves new customer
-    public void post(Customer customer) {
-        customerService.saveCustomer(customer);
+    @RequestMapping(value = "/customer/post", method = RequestMethod.POST)
+    @ResponseBody
+    public void postCustomer(CustomerDto customerDto) {
+        customerService.saveCustomer(customerDto);
     }
 
     //TODO: Create PUT method to update existing customer. Note! If user tries to update not existing customer, throw an exception
-    public void put(Customer customer) throws Exception {
-        if (customerService.getCustomerById((customer.getId())) == null) {
-            throw new Exception("User tries to update not existing customer");
+    @RequestMapping(value = "/customer/put", method = RequestMethod.PUT)
+    @ResponseBody
+    public void putCustomer(CustomerDto customerDto) {
+        if (customerService.getCustomerById((customerDto.getId())) == null) {
+            throw new NullPointerException();
         } else {
-
-            customerService.updateCustomer(customer);
-
+            customerService.updateCustomer(customerDto);
         }
     }
 
 
 
+
     //TODO: Create DELETE method that deletes customer by id
-    public void delete(Long id) {
+    @RequestMapping(value = "/customer/delete", method = RequestMethod.DELETE)
+    @ResponseBody
+    public void deleteCustomerById(Long id) {
         customerService.deleteCustomerById(id);
     }
 
 
     //TODO: Create DELETE method that deletes customer by any other key
-  public void delete(String key){
+    @RequestMapping(value = "/customer/deleteByKey", method = RequestMethod.DELETE)
+    @ResponseBody
+    public void deleteCustomerByKey(String key) {
         customerService.deleteCustomerByKey(key);
-  }
+    }
 }

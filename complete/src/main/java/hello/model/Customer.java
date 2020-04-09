@@ -1,21 +1,29 @@
 // tag::sample[]
 package hello.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Customer {
 
     //TODO: Add new fields to existing ones
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+   // @Column(name = "id", nullable = false, updatable = false)
     private Long id;
     private String firstName;
     private String lastName;
+    private String searchKey;
+
+    public String getSearchKey() {
+        return searchKey;
+    }
+
+    public void setSearchKey(String searchKey) {
+        this.searchKey = searchKey;
+    }
 
     protected Customer() {}
 
@@ -33,7 +41,19 @@ public class Customer {
 
 // end::sample[]
 
-	public Long getId() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Long getId() {
 		return id;
 	}
 

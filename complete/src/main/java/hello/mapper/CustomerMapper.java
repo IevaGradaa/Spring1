@@ -2,19 +2,21 @@ package hello.mapper;
 
 import hello.dto.CustomerDto;
 import hello.model.Customer;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class CustomerMapper {
 
     //TODO: Implement method that maps entity to dto
     public CustomerDto map(Customer customer)//, CustomerDto customerDto)
     {
-        CustomerDto customerDto = new CustomerDto();
-        customerDto.setFirstName(customer.getFirstName());
-        customerDto.setLastName(customer.getLastName());
-        customerDto.setId(customer.getId());
+        CustomerDto customerDto = new CustomerDto(customer.getFirstName(),customer.getLastName());
+        //customerDto.setFirstName(customer.getFirstName());
+        //customerDto.setLastName(customer.getLastName());
+        //customerDto.setId(customer.getId());
         return customerDto;
     }
 
